@@ -20,21 +20,25 @@ int main(void)
     int sentences = count_sentences(text);
 
     //index = 0.0588 * L - 0.296 * S - 15.8
-    float L = (letters / words) * 100.0;
-    float S = (sentences / words) * 100.0;
+    float L = (letters / (float) words) * 100;
+    float S = (sentences / (float) words) * 100;
+
     float g = 0.0588 * L - 0.296 * S - 15.8;
     int grade = round(g);
-    if(grade<2)
+
+    // printf("%f %f %f %i", L, S, g, grade);
+
+    if (grade < 2)
     {
         printf("Before Grade 1\n");
     }
-    else if(grade>16)
+    else if (grade > 16)
     {
         printf("Grade 16+\n");
     }
     else
     {
-        printf("Grade: %i\n", grade);
+        printf("Grade %i\n", grade);
     }
 
 }
@@ -42,10 +46,10 @@ int main(void)
 int count_letters(string text)
 {
     int n = 0, letter = 0;
-    while(text[n] != '\0')
+    while (text[n] != '\0')
     {
         text[n] = toupper(text[n]);
-        if(text[n] >= 'A' && text[n] <= 'Z')
+        if (text[n] >= 'A' && text[n] <= 'Z')
         {
             letter++;
         }
@@ -56,11 +60,11 @@ int count_letters(string text)
 }
 int count_words(string text)
 {
-   int n = 0, words = 1;
-    while(text[n] != '\0')
+    int n = 0, words = 1;
+    while (text[n] != '\0')
     {
         text[n] = toupper(text[n]);
-        if(text[n] == ' ')
+        if (text[n] == ' ')
         {
             words++;
         }
@@ -72,10 +76,10 @@ int count_words(string text)
 int count_sentences(string text)
 {
     int n = 0, sentences = 0;
-    while(text[n] != '\0')
+    while (text[n] != '\0')
     {
         text[n] = toupper(text[n]);
-        if(text[n] == '.' || text[n] == '?' || text[n] == '!')
+        if (text[n] == '.' || text[n] == '?' || text[n] == '!')
         {
             sentences++;
         }
