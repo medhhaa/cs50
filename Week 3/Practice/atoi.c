@@ -44,3 +44,35 @@ int convert(string input)
 
     }
 }
+
+
+
+// what is happening here is:
+// each time the last integer is being extracted from the string input
+// and the size is being reduced by 1
+// So, for the no 123  :
+
+// First call:
+//     c = 3; (assume after - 48)
+//     input = "12";
+//     return convert("12") * 10 + 3;  to MAIN  // this call will initialize the second iteration
+
+//      Second call:
+//              c = 2;
+//              input = "1";
+//               return convert("1") * 10 + 2;  to First
+
+//               Third call:
+//                           c = 1;
+//                           input = "";
+//                           return convert("")*10 + 1;   to Second
+//                           // here the if statement will execute and 0 will be returned: convert("") = 0
+//                            return 0*10 + 1 = 1 to Second
+
+//        Second call:
+//              convert("1") = 1
+//              return 1*10 + 2 = 12 to Fisrt
+
+// First call:
+//      convert("12") = 12
+//      return 12*10 + 3 = 123 to Main;
