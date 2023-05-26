@@ -10,3 +10,4 @@ sort3 uses: Selection sort
 
 How do you know?: slower than sort2 but faster than sort 1
 
+Using -> time ./[sort_file] [text_file.txt]
