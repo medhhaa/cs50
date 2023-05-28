@@ -74,35 +74,35 @@ int main(void)
 // Add at least the first for items to the menu array
 void add_items(void)
 {
-    menu_item[0].item = "Burger";
-    menu_item[0].price = 9.5;
+    menu[0].item = "Burger";
+    menu[0].price = 9.5;
 
-    menu_item[1].city = "Vegan Burger";
-    menu_item[1].temp = 11;
+    menu[1].item = "Vegan Burger";
+    menu[1].price = 11;
 
-    menu_item[2].item = "Hot Dog";
-    menu_item[2].price = 5;
+    menu[2].item = "Hot Dog";
+    menu[2].price = 5;
 
-    menu_item[3].item = "Cheese Dog";
-    menu_item[3].price = 7;
+    menu[3].item = "Cheese Dog";
+    menu[3].price = 7;
 
-    menu_item[4].item = "Fries";
-    menu_item[4].price = 5;
+    menu[4].item = "Fries";
+    menu[4].price = 5;
 
-    menu_item[5].item = "Cold Pressed Juice";
-    menu_item[5].price = 7;
+    menu[5].item = "Cold Pressed Juice";
+    menu[5].price = 7;
 
-    menu_item[6].item = "Cold Brew";
-    menu_item[6].price = 3;
+    menu[6].item = "Cold Brew";
+    menu[6].price = 3;
 
-    menu_item[7].item = "Cheese Fries";
-    menu_item[7].price = 6;
+    menu[7].item = "Cheese Fries";
+    menu[7].price = 6;
 
-    menu_item[8].item = "Water";
-    menu_item[8].price = 2;
+    menu[8].item = "Water";
+    menu[8].price = 2;
 
-    menu_item[9].item = "Soda";
-    menu_item[9].price = 2;
+    menu[9].item = "Soda";
+    menu[9].price = 2;
 }
 
 // Search through the menu array to find an item's cost
