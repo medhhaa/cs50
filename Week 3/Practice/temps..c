@@ -62,5 +62,24 @@ int main(void)
 // TODO: Sort cities by temperature in descending order
 void sort_cities(void)
 {
-    // Add your code here
+    int max, index;
+    // Using selection sort
+    for (int i = 0; i < NUM_CITIES; i++)
+    {
+        max = temps[i].temp;
+        index = i;
+        for (int j = i + 1; j < NUM_CITIES; j++)
+        {
+            //store cuurent max and its index
+            if (temps[j].temp > max)
+            {
+                max = temps[j].temp;
+                index = j;
+            }
+        }
+
+        // swapping using selection sort by swapping max by and value at front
+        temps[index].temp = temps[i].temp;
+        temps[i].temp = max;
+    }
 }
