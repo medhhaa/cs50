@@ -28,6 +28,8 @@ int candidate_count;
 
 //pair weight
 int pair_weight(int i);
+//for lock
+bool has_cycle(int w, int l);
 
 // Function prototypes
 bool vote(int rank, string name, int ranks[]);
@@ -123,13 +125,10 @@ void record_preferences(int ranks[])
     // TODO: update prefernce array for eg if a > b > c so 'a' will have a,a = 0, a,b = 1; a,c = 1
      for (int i = 0; i < candidate_count; i++)
      {
-        for (int j = 0; j < candidate_count; j++)
+        for (int j = i + 1; j < candidate_count; j++)
         {
             // no of voters that prefer i over j
-            if (ranks[i] > ranks[j])
-            {
-                preferences[i][j] += 1;
-            }
+            preferences[ranks[i]][ranks[j]] += 1;
         }
      }
 }
