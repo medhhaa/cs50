@@ -203,12 +203,22 @@ void sort_pairs(void)
         pairs[i] = temp;
         // printf("\n Swap i: %i index: %i", i, index);
     }
+}
 
-    // for(int i = 0 ; i < pair_count; i++)
-    // {
-    //     printf("\n i: %i winner: %i  loser: %i", i, pairs[i].winner, pairs[i].loser);
-    // }
-    // printf("\n");
+bool has_cycle(int w, int l)
+{
+    if (locked[l][w] == true)
+    {
+        return true;
+    }
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (locked[l][i] == true && has_cycle(w,i))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
@@ -225,51 +235,33 @@ void lock_pairs(void)
     }
     for (int i = 0; i < pair_count; i++)
     {
-        // if there is tie, then do not add the pair and skip (no cycle; no deadlock!)
-        if (locked[pairs[i].loser][pairs[i].winner] == false)
+        if (!has_cycle(pairs[i].winner, pairs[i].loser))
         {
             locked[pairs[i].winner][pairs[i].loser] = true;
         }
     }
-
-    // //header
-    //  for(int i = 0 ; i < candidate_count; i++)
-    //  {
-    //     printf("\t %s", candidates[i]);
-    //  }
-    // printf("\n");
-    // //side
-    //  for (int i = 0; i < candidate_count; i++)
-    //  {
-    //     printf("%s \t", candidates[i]);
-    //     for (int j = 0; j < candidate_count; j++)
-    //     {
-    //         // no of voters that prefer i over j
-    //         printf(" %i \t", locked[i][j]);
-    //     }
-    //     printf("\n");
-    //  }
 }
 
 // Print the winner of the election
 void print_winner(void)
 {
     // TODO
-    bool no_arrows;
-    for (int i = 0; i < candidate_count; i++)
+    int c = 1, i;
+    for (i = 0; i < candidate_count; i++)
     {
-        no_arrows = true;
         for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[i][j] == true)
+            if (locked[j][i] == true)
             {
-                no_arrows = false;
+                c = 0;
+                break;
             }
         }
-        if (no_arrows)
+        if (c == 1)
         {
-            printf("%s\n", candidates[i]);
             break;
         }
     }
+    printf("%s\n", candidates[i]);
+    return;
 }
