@@ -19,15 +19,15 @@ typedef struct
 }
 pair;
 
-//pair weight
-int pair_weight(int i);
-
 // Array of candidates
 string candidates[MAX];
 pair pairs[MAX * (MAX - 1) / 2];
 
 int pair_count;
 int candidate_count;
+
+//pair weight
+int pair_weight(int i);
 
 // Function prototypes
 bool vote(int rank, string name, int ranks[]);
@@ -110,8 +110,7 @@ bool vote(int rank, string name, int ranks[])
         //name matches then update the ranks 0 - highest and n-1 - lowest
         if (strcmp(candidates[i], name) == 0)
         {
-            ranks[i] = rank;
-            // printf("%s, ranks[i] %i, i:  %i rank %i\n", candidates[i], ranks[i], i, rank);
+            ranks[rank] = i;
             return true;
         }
     }
@@ -127,27 +126,11 @@ void record_preferences(int ranks[])
         for (int j = 0; j < candidate_count; j++)
         {
             // no of voters that prefer i over j
-            if (ranks[i] < ranks[j])
+            if (ranks[i] > ranks[j])
             {
                 preferences[i][j] += 1;
             }
         }
-     }
-    //header
-     for(int i = 0 ; i < candidate_count; i++)
-     {
-        printf("\t %s", candidates[i]);
-     }
-    printf("\n");
-     for (int i = 0; i < candidate_count; i++)
-     {
-        printf("%s \t", candidates[i]);
-        for (int j = 0; j < candidate_count; j++)
-        {
-            // no of voters that prefer i over j
-            printf(" %i \t", preferences[i][j]);
-        }
-        printf("\n");
      }
 }
 
@@ -175,11 +158,11 @@ void add_pairs(void)
         }
     }
 
-            for (int j = 0; j < pair_count; j++)
-            {
-                // no of voters that prefer i over j
-                printf("c[i] = %s, winner = %s loser %s\n", candidates[j], candidates[pairs[j].winner], candidates[pairs[j].loser]);
-            }
+            // for (int j = 0; j < pair_count; j++)
+            // {
+            //     // no of voters that prefer i over j
+            //     // printf("c[i] = %s, winner = %s loser %s\n", candidates[j], candidates[pairs[j].winner], candidates[pairs[j].loser]);
+            // }
 
 }
 
@@ -193,33 +176,15 @@ int pair_weight(int i)
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // for (int i = 0; i < NUM_CITIES; i++)
-    // {
-    //     max = temps[i].temp;
-    //     index = i;
-    //     for (int j = i + 1; j < NUM_CITIES; j++)
-    //     {
-    //         //store cuurent max and its index
-    //         if (temps[j].temp > max)
-    //         {
-    //             max = temps[j].temp;
-    //             index = j;
-    //         }
-    //     }
-
-    //     // swapping using selection sort by swapping max by and value at front
-    //     temps[index].temp = temps[i].temp;
-    //     temps[i].temp = max;
-    // }
 
     int index;
 
-    // TODO
-    for(int i = 0 ; i < pair_count; i++)
-    {
-        printf("\n i: %i winner: %i  loser: %i", i, pairs[i].winner, pairs[i].loser);
-    }
-    printf("\n");
+    // // TODO
+    // for(int i = 0 ; i < pair_count; i++)
+    // {
+    //     printf("\n i: %i winner: %i  loser: %i", i, pairs[i].winner, pairs[i].loser);
+    // }
+    // printf("\n");
     for (int i = 0; i < pair_count; i++)
     {
         int max = pair_weight(i);
@@ -230,21 +195,21 @@ void sort_pairs(void)
             {
                 max = pair_weight(j);
                 index = j;
-                printf("\n Index changed index: %i, pw i: %i < pw j: %i , c[i]: %s", index, pair_weight(i), pair_weight(j), candidates[j]);
+                // printf("\n Index changed index: %i, pw i: %i < pw j: %i , c[i]: %s", index, pair_weight(i), pair_weight(j), candidates[j]);
             }
         }
         //swap
         pair temp = pairs[index];
         pairs[index] = pairs[i];
         pairs[i] = temp;
-        printf("\n Swap i: %i index: %i", i, index);
+        // printf("\n Swap i: %i index: %i", i, index);
     }
 
-    for(int i = 0 ; i < pair_count; i++)
-    {
-        printf("\n i: %i winner: %i  loser: %i", i, pairs[i].winner, pairs[i].loser);
-    }
-    printf("\n");
+    // for(int i = 0 ; i < pair_count; i++)
+    // {
+    //     printf("\n i: %i winner: %i  loser: %i", i, pairs[i].winner, pairs[i].loser);
+    // }
+    // printf("\n");
 }
 
 // Lock pairs into the candidate graph in order, without creating cycles
@@ -252,14 +217,60 @@ void lock_pairs(void)
 {
     // TODO
     // locked[i][j] means i is locked in over j
-    
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = 0; j < candidate_count; j++)
+        {
+            locked[i][j] = false;
+        }
+    }
+    for (int i = 0; i < pair_count; i++)
+    {
+        // if there is tie, then do not add the pair and skip (no cycle; no deadlock!)
+        if (locked[pairs[i].loser][pairs[i].winner] == false)
+        {
+            locked[pairs[i].winner][pairs[i].loser] = true;
+        }
+    }
 
-    return;
+    // //header
+    //  for(int i = 0 ; i < candidate_count; i++)
+    //  {
+    //     printf("\t %s", candidates[i]);
+    //  }
+    // printf("\n");
+    // //side
+    //  for (int i = 0; i < candidate_count; i++)
+    //  {
+    //     printf("%s \t", candidates[i]);
+    //     for (int j = 0; j < candidate_count; j++)
+    //     {
+    //         // no of voters that prefer i over j
+    //         printf(" %i \t", locked[i][j]);
+    //     }
+    //     printf("\n");
+    //  }
 }
 
 // Print the winner of the election
 void print_winner(void)
 {
     // TODO
-    return;
+    bool no_arrows;
+    for (int i = 0; i < candidate_count; i++)
+    {
+        no_arrows = true;
+        for (int j = 0; j < candidate_count; j++)
+        {
+            if (locked[i][j] == true)
+            {
+                no_arrows = false;
+            }
+        }
+        if (no_arrows)
+        {
+            printf("%s\n", candidates[i]);
+            break;
+        }
+    }
 }
