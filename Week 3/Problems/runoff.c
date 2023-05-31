@@ -205,6 +205,7 @@ int find_min(void)
 bool is_tie(int min)
 {
     // TODO
+
     return false;
 }
 
@@ -212,5 +213,12 @@ bool is_tie(int min)
 void eliminate(int min)
 {
     // TODO
+    for (int j = 0; j < candidate_count; j++)
+    {
+        if(candidates[j].votes <= min)
+        {
+            candidates[j].eliminated = true;
+        }
+    }
     return;
 }
