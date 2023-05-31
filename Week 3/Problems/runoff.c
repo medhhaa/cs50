@@ -156,17 +156,19 @@ void tabulate(void)
         {
             if (candidates[j].eliminated)
             {
+                j++;   //if this candidate has been eliminated, incremenet and contn
                 continue;
             }
-            if (preferences[i][rank] == j)
+            if (preferences[i][rank] == j) //if candidate not eliminated and at top preference, add count
             {
                 candidates[j].votes += 1;
                 break;
             }
-            else if (j == candidate_count - 1)
+            else if (j == (candidate_count - 1))  //if candidate at top pref has been eliminated, increment rank and check for each j
             {
                 rank++;
                 j = 0;
+                continue;
             }
             j++;
         }
