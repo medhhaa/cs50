@@ -165,12 +165,6 @@ void tabulate(void)
                 j = 0;
                 continue;
             }
-            // else if (j == (candidate_count - 1))  //if candidate at top pref has been eliminated, increment rank and check for each j
-            // {
-            //     rank++;
-            //     j = 0;
-            //     continue;
-            // }
             j++;
         }
     }
@@ -210,7 +204,7 @@ int find_min(void)
     int min = candidates[0].votes;
     for (int j = 1; j < candidate_count; j++)
     {
-        if(candidates[j].eliminated == false && candidates[j].votes < min)
+        if (candidates[j].eliminated == false && candidates[j].votes < min)
         {
             min = candidates[j].votes;
         }
@@ -226,7 +220,7 @@ bool is_tie(int min)
     //check how many candidates are alive
     for (int j = 0; j < candidate_count; j++)
     {
-        if(candidates[j].eliminated == false)
+        if (candidates[j].eliminated == false)
         {
             alive++;
         }
@@ -234,7 +228,7 @@ bool is_tie(int min)
     //update no of candidates having minimum votes
     for (int j = 0; j < candidate_count; j++)
     {
-        if(candidates[j].eliminated == false && candidates[j].votes == min)
+        if (candidates[j].eliminated == false && candidates[j].votes == min)
         {
             count++;
         }
@@ -254,7 +248,7 @@ void eliminate(int min)
     // TODO
     for (int j = 0; j < candidate_count; j++)
     {
-        if(candidates[j].votes <= min)
+        if (candidates[j].votes <= min)
         {
             candidates[j].eliminated = true;
         }
