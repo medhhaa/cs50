@@ -154,24 +154,33 @@ void tabulate(void)
         int j = 0;
         while (j < candidate_count)
         {
-            if (candidates[j].eliminated)
-            {
-                j++;   //if this candidate has been eliminated, incremenet and contn
-                continue;
-            }
-            if (preferences[i][rank] == j) //if candidate not eliminated and at top preference, add count
+            if (!candidates[j].eliminated && preferences[i][rank] == j) //if candidate not eliminated and at top preference, add count
             {
                 candidates[j].votes += 1;
                 break;
             }
-            else if (j == (candidate_count - 1))  //if candidate at top pref has been eliminated, increment rank and check for each j
+            if (candidates[j].eliminated && preferences[i][rank] == j)
             {
-                rank++;
+                rank++;   //if this candidate has been eliminated, incremenet and contn
                 j = 0;
                 continue;
             }
+            // else if (j == (candidate_count - 1))  //if candidate at top pref has been eliminated, increment rank and check for each j
+            // {
+            //     rank++;
+            //     j = 0;
+            //     continue;
+            // }
             j++;
         }
+    }
+
+    for (int j = 0; j < candidate_count; j++)
+    {
+        // candidates[j].eliminated
+
+        printf("j: %i name: %s, votes = %i, eliminated? = %i\n", j, candidates[j].name, candidates[j].votes, candidates[j].eliminated);
+
     }
 }
 
