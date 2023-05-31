@@ -129,6 +129,9 @@ int main(int argc, string argv[])
 bool vote(int voter, int rank, string name)
 {
     // TODO
+    //In pref[i][j] = i -> voter id, j -> rank
+    //it basically stores the index of candidate at specified rank(j)
+    //pref[0][1] = 2  <- means that the voter[0] put candidate[2] at rank 1
     for (int i = 0; i < candidate_count; i++)
     {
         if (strcmp(name, candidates[i].name) == 0)
@@ -144,13 +147,48 @@ bool vote(int voter, int rank, string name)
 void tabulate(void)
 {
     // TODO
-    return;
+    int rank;
+    for (int i = 0; i < voter_count; i++)
+    {
+        rank = 0;
+        int j = 0;
+        while (j < candidate_count)
+        {
+            if (candidates[j].eliminated)
+            {
+                continue;
+            }
+            if (preferences[i][rank] == j)
+            {
+                candidates[j].votes += 1;
+                break;
+            }
+            else if (j == candidate_count - 1)
+            {
+                rank++;
+                j = 0;
+            }
+            j++;
+        }
+    }
 }
 
 // Print the winner of the election, if there is one
 bool print_winner(void)
 {
     // TODO
+    int half = (voter_count + 1) / 2;
+    for (int i = 0; i < voter_count; i++)
+    {
+        for (int j = 0; j < candidate_count; j++)
+        {
+            if (candidates[j].votes > half) // odd/even - even rahega toh
+            {
+                printf("%s\n", candidates[j].name);
+                return true;
+            }
+        }
+    }
     return false;
 }
 
