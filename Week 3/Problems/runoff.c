@@ -205,7 +205,29 @@ int find_min(void)
 bool is_tie(int min)
 {
     // TODO
-
+    int count = 0, alive = 0;
+    //check how many candidates are alive
+    for (int j = 0; j < candidate_count; j++)
+    {
+        if(candidates[j].eliminated == false)
+        {
+            alive++;
+        }
+    }
+    //update no of candidates having minimum votes
+    for (int j = 0; j < candidate_count; j++)
+    {
+        if(candidates[j].eliminated == false && candidates[j].votes == min)
+        {
+            count++;
+        }
+    }
+    //check if no of candidates having min == no of candidates alive -> TIE
+    if (alive == count)
+    {
+        return true;
+    }
+    //else
     return false;
 }
 
