@@ -123,14 +123,14 @@ bool vote(int rank, string name, int ranks[])
 void record_preferences(int ranks[])
 {
     // TODO: update prefernce array for eg if a > b > c so 'a' will have a,a = 0, a,b = 1; a,c = 1
-     for (int i = 0; i < candidate_count; i++)
-     {
+    for (int i = 0; i < candidate_count; i++)
+    {
         for (int j = i + 1; j < candidate_count; j++)
         {
             // no of voters that prefer i over j
             preferences[ranks[i]][ranks[j]] += 1;
         }
-     }
+    }
 }
 
 // Record pairs of candidates where one is preferred over the other
@@ -156,13 +156,6 @@ void add_pairs(void)
             }
         }
     }
-
-            // for (int j = 0; j < pair_count; j++)
-            // {
-            //     // no of voters that prefer i over j
-            //     // printf("c[i] = %s, winner = %s loser %s\n", candidates[j], candidates[pairs[j].winner], candidates[pairs[j].loser]);
-            // }
-
 }
 
 int pair_weight(int i)
@@ -213,7 +206,7 @@ bool has_cycle(int w, int l)
     }
     for (int i = 0; i < candidate_count; i++)
     {
-        if (locked[l][i] == true && has_cycle(w,i))
+        if (locked[l][i] == true && has_cycle(w, i))
         {
             return true;
         }
