@@ -17,7 +17,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         }
     }
     return;
-     //to run: ./filter -g images/courtyard.bmp images/courtblack.bmp
+    //to run: ./filter -g images/courtyard.bmp images/courtblack.bmp
 }
 
 // Reflect image horizontally :- Swap a line horizontally
@@ -40,7 +40,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image: edge corner: divide by 4; on the edge but not corner: divide by 6; in between: divide by 9;
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-	RGBTRIPLE imgCopy[height][width];
+    RGBTRIPLE imgCopy[height][width];
 	float avgRed;
 	float avgGreen;
 	float avgBlue;
@@ -53,11 +53,8 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 			imgCopy[row][w].rgbtRed = image[row][w].rgbtRed;
 			imgCopy[row][w].rgbtGreen = image[row][w].rgbtGreen;
 			imgCopy[row][w].rgbtBlue = image[row][w].rgbtBlue;
-
-
 		}
 	}
-
 	for (int h = 0; h < height; h++)
 	{
 		for (int w = 0; w < width; w++)
@@ -65,11 +62,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 			//if the pixel is on the top left edge
 			if (w == 0 && h == 0)
 			{
-				avgRed = (float)(imgCopy[h][w].rgbtRed + imgCopy[h][w+1].rgbtRed + imgCopy[h+1][w].rgbtRed + imgCopy[h+1][w+1].rgbtRed) / 4;
-
-				avgGreen = (float)(imgCopy[h][w].rgbtGreen + imgCopy[h][w+1].rgbtGreen + imgCopy[h+1][w].rgbtGreen + imgCopy[h+1][w+1].rgbtGreen) / 4;
-
-				avgBlue = (float)(imgCopy[h][w].rgbtBlue + imgCopy[h][w+1].rgbtBlue + imgCopy[h+1][w].rgbtBlue + imgCopy[h+1][w+1].rgbtBlue) / 4;
+				avgRed = (float)(imgCopy[h][w].rgbtRed + imgCopy[h][w + 1].rgbtRed + imgCopy[h + 1][w].rgbtRed + imgCopy[h + 1][w + 1].rgbtRed) / 4;
+				avgGreen = (float)(imgCopy[h][w].rgbtGreen + imgCopy[h][w + 1].rgbtGreen + imgCopy[h + 1][w].rgbtGreen + imgCopy[h + 1][w + 1].rgbtGreen) / 4;
+				avgBlue = (float)(imgCopy[h][w].rgbtBlue + imgCopy[h][w + 1].rgbtBlue + imgCopy[h + 1][w].rgbtBlue + imgCopy[h + 1][w + 1].rgbtBlue) / 4;
 				avgRed = round(avgRed);
 				avgBlue = round(avgBlue);
 				avgGreen = round(avgGreen);
@@ -78,15 +73,12 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 				image[h][w].rgbtGreen = avgGreen;
 				image[h][w].rgbtBlue = avgBlue;
 			}
-
 			//if the pixel is on the lower left edge
 			else if (w == 0 && h == (height - 1))
 			{
-				avgRed =(float)(imgCopy[h-1][w].rgbtRed + imgCopy[h-1][w+1].rgbtRed + imgCopy[h][w].rgbtRed + imgCopy[h][w+1].rgbtRed) / 4;
-
-				avgGreen = (float)(imgCopy[h-1][w].rgbtGreen + imgCopy[h-1][w+1].rgbtGreen + imgCopy[h][w].rgbtGreen + imgCopy[h][w+1].rgbtGreen) / 4;
-
-				avgBlue = (float)(imgCopy[h-1][w].rgbtBlue + imgCopy[h-1][w+1].rgbtBlue + imgCopy[h][w].rgbtBlue + imgCopy[h][w+1].rgbtBlue) / 4;
+				avgRed = (float)(imgCopy[h - 1][w].rgbtRed + imgCopy[h - 1][w + 1].rgbtRed + imgCopy[h][w].rgbtRed + imgCopy[h][w + 1].rgbtRed) / 4;
+				avgGreen = (float)(imgCopy[h - 1][w].rgbtGreen + imgCopy[h - 1][w + 1].rgbtGreen + imgCopy[h][w].rgbtGreen + imgCopy[h][w + 1].rgbtGreen) / 4;
+				avgBlue = (float)(imgCopy[h - 1][w].rgbtBlue + imgCopy[h - 1][w + 1].rgbtBlue + imgCopy[h][w].rgbtBlue + imgCopy[h][w + 1].rgbtBlue) / 4;
 				avgRed = round(avgRed);
 				avgGreen = round(avgGreen);
 				avgBlue = round(avgBlue);
@@ -99,11 +91,10 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 			//if the pixel is on top Right
 			else if (h == 0 && w == (width - 1))
 			{
-				avgRed = (float)(imgCopy[h][w-1].rgbtRed + imgCopy[h][w].rgbtRed + imgCopy[h+1][w-1].rgbtRed + imgCopy[h+1][w].rgbtRed)/ 4;
+				avgRed = (float)(imgCopy[h][w - 1].rgbtRed + imgCopy[h][w].rgbtRed + imgCopy[h + 1][w - 1].rgbtRed + imgCopy[h + 1][w].rgbtRed)/ 4;
+				avgGreen = (float)(imgCopy[h][w - 1].rgbtGreen + imgCopy[h][w].rgbtGreen + imgCopy[h + 1][w - 1].rgbtGreen + imgCopy[h + 1][w].rgbtGreen) / 4;
 
-				avgGreen = (float)(imgCopy[h][w-1].rgbtGreen + imgCopy[h][w].rgbtGreen + imgCopy[h+1][w-1].rgbtGreen + imgCopy[h+1][w].rgbtGreen) / 4;
-
-				avgBlue = (float)(imgCopy[h][w-1].rgbtBlue + imgCopy[h][w].rgbtBlue + imgCopy[h+1][w-1].rgbtBlue + imgCopy[h+1][w].rgbtBlue) / 4;
+				avgBlue = (float)(imgCopy[h][w - 1].rgbtBlue + imgCopy[h][w].rgbtBlue + imgCopy[h + 1][w - 1].rgbtBlue + imgCopy[h + 1][w].rgbtBlue) / 4;
 
 				avgRed = round(avgRed);
 				avgGreen = round(avgGreen);
@@ -117,11 +108,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 			//if the pixel is on lower right
 			else if(h == (height - 1) && w == (width - 1))
 			{
-				avgRed = (float)(imgCopy[h-1][w-1].rgbtRed + imgCopy[h-1][w].rgbtRed + imgCopy[h][w-1].rgbtRed + imgCopy[h][w].rgbtRed) / 4;
-
-		 		avgBlue = (float)(imgCopy[h-1][w-1].rgbtBlue + imgCopy[h-1][w].rgbtBlue + imgCopy[h][w-1].rgbtBlue + imgCopy[h][w].rgbtBlue) / 4;
-
-				avgGreen = (float)(imgCopy[h-1][w-1].rgbtGreen + imgCopy[h-1][w].rgbtGreen + imgCopy[h][w-1].rgbtGreen + imgCopy[h][w].rgbtGreen) / 4;
+				avgRed = (float)(imgCopy[h - 1][w - 1].rgbtRed + imgCopy[h - 1][w].rgbtRed + imgCopy[h][w - 1].rgbtRed + imgCopy[h][w].rgbtRed) / 4;
+		 		avgBlue = (float)(imgCopy[h - 1][w - 1].rgbtBlue + imgCopy[h - 1][w].rgbtBlue + imgCopy[h][w - 1].rgbtBlue + imgCopy[h][w].rgbtBlue) / 4;
+				avgGreen = (float)(imgCopy[h - 1][w - 1].rgbtGreen + imgCopy[h - 1][w].rgbtGreen + imgCopy[h][w - 1].rgbtGreen + imgCopy[h][w].rgbtGreen) / 4;
 
 				avgRed = round(avgRed);
 				avgGreen = round(avgGreen);
