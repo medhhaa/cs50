@@ -23,28 +23,14 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally :- Swap a line horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
-    int limit = round(width / 2);
     for (int i = 0; i < height; i++)
     {
-        int p2 = width - 1;
-        for (int p1 = 0; p1 < limit; j++)
+        for (int j = 0; j < width / 2; j++)
         {
-            //swap red
-            int temp = image[i][p1].rgbtRed;
-            image[i][p1].rgbtRed = image[i][p2].rgbtRed;
-            image[i][p2].rgbtRed = temp;
-
-            //swap blue
-            temp = image[i][p1].rgbtBlue;
-            image[i][p1].rgbtBlue = image[i][p2].rgbtBlue;
-            image[i][p2].rgbtBlue = temp;
-
-            //swap green
-            temp = image[i][p1].rgbtGreen;
-            image[i][p1].rgbtGreen = image[i][p2].rgbtGreen;
-            image[i][p2].rgbtGreen = temp;
-
-            p2--;
+            //swap image
+            RGBTRIPLE temp = image[i][j];
+            image[i][j] = image[i][width - 1 - j];
+            image[i][width - 1 - j] = temp;
         }
     }
     return;
