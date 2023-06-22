@@ -17,12 +17,36 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         }
     }
     return;
-    //to run: ./filter -g images/courtyard.bmp images/courtblack.bmp
+     //to run: ./filter -g images/courtyard.bmp images/courtblack.bmp
 }
 
-// Reflect image horizontally
+// Reflect image horizontally :- Swap a line horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    int limit = round(width / 2);
+    for (int i = 0; i < height; i++)
+    {
+        int p2 = width - 1;
+        for (int p1 = 0; p1 < limit; j++)
+        {
+            //swap red
+            int temp = image[i][p1].rgbtRed;
+            image[i][p1].rgbtRed = image[i][p2].rgbtRed;
+            image[i][p2].rgbtRed = temp;
+
+            //swap blue
+            temp = image[i][p1].rgbtBlue;
+            image[i][p1].rgbtBlue = image[i][p2].rgbtBlue;
+            image[i][p2].rgbtBlue = temp;
+
+            //swap green
+            temp = image[i][p1].rgbtGreen;
+            image[i][p1].rgbtGreen = image[i][p2].rgbtGreen;
+            image[i][p2].rgbtGreen = temp;
+
+            p2--;
+        }
+    }
     return;
 }
 
