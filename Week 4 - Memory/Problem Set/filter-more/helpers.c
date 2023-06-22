@@ -17,6 +17,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         }
     }
     return;
+    //to run: ./filter -g images/courtyard.bmp images/courtblack.bmp
 }
 
 // Reflect image horizontally
