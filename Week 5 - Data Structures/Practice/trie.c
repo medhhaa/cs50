@@ -121,9 +121,15 @@ bool check(char* word)
         upper_letter = toupper(word[i]);
         index = upper_letter - 65;
         // printf("%i ", index);
+        if (cursor->children[index] == NULL)
+        {
+            return false;
+        }
+        //If children[index] is in fact a node, you can reset cursor to this node and check for the next letter in its children nodes.
+        cursor = cursor->children[index];
     }
 
-    return false;
+    return true;
 }
 
 // Unload trie from memory
@@ -136,7 +142,7 @@ bool unload(void)
     return true;
 }
 
-void unloader(node* current)
+void unloader(node *current)
 {
 
     // Iterate over all the children to see if they point to anything and go
