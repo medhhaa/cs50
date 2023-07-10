@@ -112,6 +112,16 @@ bool check(char* word)
 {
     //Set cursor to root
     node *cursor = root;
+    char upper_letter;
+    int index;
+
+    //iterate over each letter of word
+    for (int i = 0, n = strlen(word); i < n; i++)
+    {
+        upper_letter = toupper(word[i]);
+        index = upper_letter - 65;
+        // printf("%i ", index);
+    }
 
     return false;
 }
