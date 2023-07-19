@@ -17,7 +17,7 @@ def main():
 
 
 def digit_count(c):
-    count = 0;
+    count = 0
     while (c > 0):
         count += 1
         c //= 10
