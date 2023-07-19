@@ -15,8 +15,8 @@ def main():
     # print(letters, words, sentences)
 
     #index = 0.0588 * L - 0.296 * S - 15.8
-    L = (letters //  words) * 100
-    S = (sentences //  words) * 100
+    L = (letters /  words) * 100
+    S = (sentences / words) * 100
 
     g = 0.0588 * L - 0.296 * S - 15.8
     grade = round(g)
