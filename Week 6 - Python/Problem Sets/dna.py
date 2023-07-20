@@ -68,10 +68,18 @@ def main():
     name = ''
     desired_count = len(subsequences)
     
-    #
+    #db_reader - as already illustrated above in DictReader has multiple dictionaries for each person, Luna, Ron, Harry etc...
+    #so going one persons STRs at a time
     for dic in db_reader1:
+
+        #set counter to 0 for each person, 
+        # so that at the end you can check whether all 8 fields match, 
+        # if not start again from _scratch_ -- 0 for a new person
         count = 0
+
+        #traverse the list by keys
         for key in dic:
+
             # if name: skip, as subsequences dont have the name key in the first place.
             if(key == 'name'):
                 continue
@@ -136,3 +144,6 @@ def longest_match(sequence, subsequence):
 
 
 main()
+
+
+#while I was coding I was just writing codes, unsure 
