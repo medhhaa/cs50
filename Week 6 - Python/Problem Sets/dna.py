@@ -19,12 +19,6 @@ def main():
     sequence = ''
     for line in dna:
         sequence = line
-        # print(line)
-
-    # for i in db_reader:
-    #     print(i)
-
-    # print()
 
     subsequences = {}
     # TODO: Find longest match of each STR in DNA sequence
@@ -35,6 +29,12 @@ def main():
                 continue
             subsequences[key] = 0
     # print(subsequences, len(subsequences))
+
+    #Close the file readers for database and dna
+    db.close()
+    db_reader.close()
+    dna.close()
+
 
     for key in subsequences:
         subsequences[key] = longest_match(sequence, key)
@@ -62,6 +62,10 @@ def main():
             sys.exit(0)
 
     print('No Match')
+
+    #Close the file readers for database.
+    db1.close()
+    db_reader1.close()
 
 def longest_match(sequence, subsequence):
     """Returns length of longest run of subsequence in sequence."""
