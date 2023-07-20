@@ -25,17 +25,22 @@ def main():
     # TODO: Read DNA sequence file into a variable
     dna = open(sys.argv[2])
 
+    #storing sequence from text file into just a variable for easier access to pass as argument to longest_matching, as well as, files when opened, can be used only ONCE.
     sequence = ''
     for line in dna:
         sequence = line
 
+    #create a dictionary to get all the fields that eventually needs to be compared with the sequences of people.
     subsequences = {}
     # TODO: Find longest match of each STR in DNA sequence
+
     db_length = 0
     for subsequence in db_reader:
         for key in subsequence:
+            #skip if key is name as we only need STRs.
             if(key == 'name'):
                 continue
+            #initializing the dictionary with 0.
             subsequences[key] = 0
     # print(subsequences, len(subsequences))
 
@@ -43,32 +48,49 @@ def main():
     db.close()
     dna.close()
 
-
+    #now, actually doing the required TODO which is finding counts of each STR in dna
+    #longest_match( sequence , subsequence )  --> (ATAGTTTTATAG, ATAG) <- 2
     for key in subsequences:
         subsequences[key] = longest_match(sequence, key)
     # print(subsequences)
 
 
     # TODO: Check database for matching profiles
+
+    #1. Open a new db (name could have been same but better to take diff for own clarity)
     db1 = open(sys.argv[1])
     db_reader1 = csv.DictReader(db1)
 
-
+    #2. Get the desired name
+    # - Logic here that I implemented was that, if for a person, say Luna, all 8 counts(large) of STRs match, then, DNA belongs to Luna
+    # - Small has 4 and Large has 8, but we cant be sure so counting from len() from subsequences
+    # - 
     name = ''
     desired_count = len(subsequences)
+    
+    #
     for dic in db_reader1:
         count = 0
         for key in dic:
+            # if name: skip, as subsequences dont have the name key in the first place.
             if(key == 'name'):
                 continue
+            #interestingly here, I was stuck for some time as the condition was giving false no matter what
+            # 18 == 18 was giving False, then I started debugging by printing to realise it was
+            # 18 == '18' and hence False, so I type casted it to int.
             # print(dic[key], subsequences[key], key, int(dic[key]) == subsequences[key])
+
+            # What happens when they are same? Th eocunt is incrememnted as well as the name is noted.
             if(int(dic[key]) == subsequences[key]):
                 count = count + 1
                 name = dic['name']
+
+        #if the count reaches the desired count (8) that means for a person all 8 fields MATCHED and hence print out result and EXIT
         if(count == desired_count):
             print(name)
             sys.exit(0)
 
+    #however, if the exit(0) didnt get executed, that means we are stuck with a NO MATCH
     print('No Match')
 
     #Close the file reader for database. (large / small)
