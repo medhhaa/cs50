@@ -7,7 +7,9 @@ def main():
     # TODO: Check for command-line usage
     if(len(sys.argv) != 3):
         print("Usage: python dna.py data.csv sequence.txt")
-        sys.exit(1)
+        #exit code can be checked using the command echo $?
+        #anything other than 0 is considered some kind of error, or not desired route/output
+        sys.exit(1)    
 
     # TODO: Read database file into a variable
     db = open(sys.argv[1])
@@ -32,7 +34,6 @@ def main():
 
     #Close the file readers for database and dna
     db.close()
-    db_reader.close()
     dna.close()
 
 
@@ -63,9 +64,9 @@ def main():
 
     print('No Match')
 
-    #Close the file readers for database.
+    #Close the file reader for database. (large / small)
     db1.close()
-    db_reader1.close()
+    # db_reader1.close()      <--- You CANNOT close the DictReader or Reader only the open needs to be closed.
 
 def longest_match(sequence, subsequence):
     """Returns length of longest run of subsequence in sequence."""
