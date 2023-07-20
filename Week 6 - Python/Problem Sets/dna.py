@@ -13,6 +13,13 @@ def main():
 
     # TODO: Read database file into a variable
     db = open(sys.argv[1])
+    
+    #The difference between DictReader and just Reader is:
+    #For a text file like -    Reader Output:       DictReader Output:
+    #A  B  C                      A  B  C          {'A' : 1, 'B' : '2', 'C' : 3}
+    #1  2  3                      1  2  3          {'A' : 4, 'B' : '5', 'C' : 6}
+    #4  5  6                      4  5  6       DictReader automatically takes first lines as fields for keys!
+
     db_reader = csv.DictReader(db)
 
     # TODO: Read DNA sequence file into a variable
