@@ -146,4 +146,8 @@ def longest_match(sequence, subsequence):
 main()
 
 
-#while I was coding I was just writing codes, unsure 
+# 20 July 2023
+# while I was coding I was just writing codes, 
+# unsure whether even I understood what I actually wrote, just debugging and writing, 
+# hence once I was positive it worked I took dedicated time to commenting and documenting everything going on 
+# and happy to say I was able to understand my approach rather easily
